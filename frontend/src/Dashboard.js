@@ -239,6 +239,7 @@ const Dashboard = () => {
     const totalBalance = bankAccounts.reduce((sum, account) => sum + account.Balance, 0);
 
     return (
+
         <div className="dashboard">
             <div className="dashboard-header">
                 <h1>Bem vindo, {user?.username}</h1>
@@ -466,7 +467,7 @@ const Dashboard = () => {
 
                                     return (
                                         <tr key={transaction.ID}>
-                                            <td>{new Date(transaction.transaction_date).toLocaleDateString()}</td>
+                                            <td>{format(new Date(transaction.transaction_date), 'dd/MM/yyyy HH:mm')}</td>
                                             <td>{transaction.Category ? transaction.Category.Name : '-'}</td>
                                             <td>
                                                 {fromAccount ?
