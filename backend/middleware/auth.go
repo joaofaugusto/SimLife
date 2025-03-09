@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-// Middleware to validate JWT
-func authMiddleware(next http.Handler) http.Handler {
+// AuthMiddleware Middleware to validate JWT
+func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		tokenString := r.Header.Get("Authorization")
 		if tokenString == "" {

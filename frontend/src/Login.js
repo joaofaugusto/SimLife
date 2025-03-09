@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './styles.css'; // Import shared styles
+import { useAuth } from './AuthContext'; // Import useAuth
+import './styles.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth(); // Destructure login from useAuth
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,12 +19,13 @@ const Login = () => {
                 password,
             });
 
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('user', JSON.stringify({
+            // Use login() to update auth state
+            login({
                 id: response.data.user_id,
                 username: response.data.username,
-            }));
+            });
 
+            localStorage.setItem('token', response.data.token);
             navigate('/dashboard');
         } catch (err) {
             setError(err.response?.data?.error || 'Login failed');
